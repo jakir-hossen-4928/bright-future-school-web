@@ -47,6 +47,13 @@ const TodoList = lazy(() => import("@/components/TodoList"));
 // Lazy-loaded student components
 const StudentDashboard = lazy(() => import("@/studentDashboard/StudentDashboard"));
 
+// Lazy-loaded exam and fee components
+const ExamManagement = lazy(() => import("@/adminDasboard/examManagement/ExamManagement"));
+const SchoolResult = lazy(() => import("@/adminDasboard/results/SchoolResult"));
+const FeeSettings = lazy(() => import("@/adminDasboard/fees/FeeSettings"));
+const CustomStudentFees = lazy(() => import("@/adminDasboard/fees/CustomStudentFees"));
+const FeeCollection = lazy(() => import("@/adminDasboard/fees/FeeCollection"));
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -225,6 +232,54 @@ const AppRoutes = () => {
           element={
             <Suspense fallback={<Loading />}>
               <LoginDevices />
+            </Suspense>
+          }
+        />
+        <Route
+          path="exam-management"
+          element={
+            <Suspense fallback={<Loading />}>
+              <ExamManagement />
+            </Suspense>
+          }
+        />
+        <Route
+          path="school-result"
+          element={
+            <Suspense fallback={<Loading />}>
+              <SchoolResult />
+            </Suspense>
+          }
+        />
+        <Route
+          path="fee-settings"
+          element={
+            <Suspense fallback={<Loading />}>
+              <FeeSettings />
+            </Suspense>
+          }
+        />
+        <Route
+          path="custom-student-fees"
+          element={
+            <Suspense fallback={<Loading />}>
+              <CustomStudentFees />
+            </Suspense>
+          }
+        />
+        <Route
+          path="fee-collection"
+          element={
+            <Suspense fallback={<Loading />}>
+              <FeeCollection />
+            </Suspense>
+          }
+        />
+        <Route
+          path="fund-tracker"
+          element={
+            <Suspense fallback={<Loading />}>
+              <FundTracker />
             </Suspense>
           }
         />
