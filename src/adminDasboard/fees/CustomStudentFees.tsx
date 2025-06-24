@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -13,7 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Plus, Edit, Trash2, UserCheck, DollarSign } from 'lucide-react';
 import axios from 'axios';
 
-const API_BASE_URL = 'https://myschool-official-server-6t886153c.vercel.app';
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || 'https://myschool-official-server-6t886153c.vercel.app';
 
 interface CustomStudentFee {
   studentId: string;
