@@ -202,7 +202,6 @@ const StudentProfile: React.FC = () => {
               <ProfileImageUploader
                 currentImageUrl={studentData.photoUrl}
                 onImageChange={handleImageChange}
-                disabled={true}
               />
             </div>
 

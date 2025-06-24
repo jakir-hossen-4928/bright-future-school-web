@@ -355,7 +355,7 @@ const UserVerify = () => {
           className="w-full md:w-auto"
         />
         <div className="flex gap-2">
-          <Select value={selectedRole} onValueChange={setSelectedRole}>
+          <Select value={selectedRole} onValueChange={(value: 'all' | 'admin' | 'staff' | 'student') => setSelectedRole(value)}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by Role" />
             </SelectTrigger>
@@ -366,7 +366,7 @@ const UserVerify = () => {
               <SelectItem value="student">Student</SelectItem>
             </SelectContent>
           </Select>
-          <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+          <Select value={selectedStatus} onValueChange={(value: 'all' | 'verified' | 'unverified') => setSelectedStatus(value)}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by Status" />
             </SelectTrigger>

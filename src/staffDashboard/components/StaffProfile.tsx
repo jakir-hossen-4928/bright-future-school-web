@@ -226,7 +226,6 @@ const StaffProfile: React.FC = () => {
                   currentImageUrl={staffData.photoUrl}
                   onImageChange={handleImageChange}
                   className="mb-4"
-                  disabled={true}
                 />
               </div>
 

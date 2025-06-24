@@ -4,13 +4,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
 import { getCurrentUser } from '@/lib/auth';
-
-interface User {
-  id: string;
-  email: string | null;
-  name: string | null;
-  role: 'admin' | 'staff' | 'student';
-}
+import { User } from '@/lib/types';
 
 const PublicLayout = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -20,7 +14,7 @@ const PublicLayout = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const currentUser = await getCurrentUser() as User | null;
+        const currentUser = await getCurrentUser();
         setUser(currentUser);
         setLoading(false);
       } catch (error) {
