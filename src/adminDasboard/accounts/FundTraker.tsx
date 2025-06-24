@@ -40,8 +40,8 @@ const FundTracker = () => {
     date: new Date().toISOString().split('T')[0], // Current date
     description: '',
     amount: '',
-    type: 'income' as const,
-    category: 'Academic' as const,
+    type: 'income' as 'income' | 'expense',
+    category: 'Academic' as 'Academic' | 'Development',
   });
 
   const [editTransaction, setEditTransaction] = useState<Transaction | null>(null);
@@ -516,7 +516,7 @@ const generateBalanceSheetPDF = () => {
             <label className="text-sm text-gray-600">Type</label>
             <Select
               value={newTransaction.type}
-              onValueChange={value => setNewTransaction({ ...newTransaction, type: value as 'income' | 'expense' })}
+              onValueChange={(value: string) => setNewTransaction({ ...newTransaction, type: value as 'income' | 'expense' })}
               disabled={isLoading}
             >
               <SelectTrigger>
@@ -532,7 +532,7 @@ const generateBalanceSheetPDF = () => {
             <label className="text-sm text-gray-600">Category</label>
             <Select
               value={newTransaction.category}
-              onValueChange={value => setNewTransaction({ ...newTransaction, category: value as 'Academic' | 'Development' })}
+              onValueChange={(value: string) => setNewTransaction({ ...newTransaction, category: value as 'Academic' | 'Development' })}
               disabled={isLoading}
             >
               <SelectTrigger>

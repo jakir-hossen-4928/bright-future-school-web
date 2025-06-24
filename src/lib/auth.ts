@@ -11,6 +11,9 @@ import { User, StudentData, StaffData } from '../lib/types';
 import { v4 as uuidv4 } from 'uuid';
 import { isMobile, isTablet, isBrowser } from 'react-device-detect';
 
+// Re-export types for other components to use
+export type { User, StudentData, StaffData } from '../lib/types';
+
 // Helper functions for device info
 const getBrowserInfo = () => {
     const userAgent = navigator.userAgent;

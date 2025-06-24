@@ -1,3 +1,4 @@
+
 export interface StudentData {
   studentId: string;
   firstName: string;
@@ -41,9 +42,17 @@ export interface StaffData {
 export interface User {
   id: string;
   email: string | null;
-  role: string;
+  role: 'admin' | 'staff' | 'student';
   verified: boolean;
   createdAt: any;
   studentData?: StudentData;
   staffData?: StaffData;
+}
+
+// Extended user type for components that need additional properties
+export interface ExtendedUser extends User {
+  uid?: string;
+  displayName?: string;
+  photoURL?: string;
+  emailVerified?: boolean;
 }
