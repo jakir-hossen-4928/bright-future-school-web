@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { getAllUsers, editUser, deleteUser } from '@/lib/usersverifyfunctions';
 import { User, StudentData, StaffData, ExtendedUser } from '@/lib/types';
@@ -6,36 +5,36 @@ import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Loader2 } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import {
   Table,
   TableBody,
   TableCaption,
   TableCell,
   TableHead,
-  TableFooter,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from '@/components/ui/table';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogFooter,
-  DialogClose,
-} from "@/components/ui/dialog"
-import { Loader2 } from 'lucide-react';
-import { Checkbox } from "@/components/ui/checkbox"
-import { Badge } from "@/components/ui/badge"
+} from '@/components/ui/select';
+
+type RoleFilter = 'all' | 'admin' | 'staff' | 'student';
+type StatusFilter = 'all' | 'verified' | 'unverified';
 
 interface Props {
   className?: string;
@@ -46,12 +45,10 @@ const UserVerify = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedRole, setSelectedRole] = useState<'all' | 'admin' | 'staff' | 'student'>('all');
-  const [selectedStatus, setSelectedStatus] = useState<'all' | 'verified' | 'unverified'>('all');
-  const { toast } = useToast();
+  const [selectedRole, setSelectedRole] = useState<RoleFilter>('all');
+  const [selectedStatus, setSelectedStatus] = useState<StatusFilter>('all');
   const [showEditModal, setShowEditModal] = useState(false);
-  const [editingUser, setEditingUser] = useState<ExtendedUser | null>(null);
-  const [isUpdating, setIsUpdating] = useState(false);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
   const [editStudentData, setEditStudentData] = useState<StudentData>({
     studentId: '',
     name: '',
@@ -86,42 +83,8 @@ const UserVerify = () => {
     workingDays: 0,
     photoUrl: '',
   });
-
-  const [emptyStudentData] = useState<StudentData>({
-    studentId: '',
-    name: '',
-    class: '',
-    number: '',
-    description: '',
-    englishName: '',
-    motherName: '',
-    fatherName: '',
-    email: '',
-    bloodGroup: '',
-    photoUrl: '',
-    nameBangla: '',
-    nameEnglish: '',
-    academicYear: '',
-    section: '',
-    shift: '',
-  });
-
-  const [emptyStaffData] = useState<StaffData>({
-    staffId: '',
-    nameBangla: '',
-    nameEnglish: '',
-    subject: '',
-    designation: '',
-    joiningDate: '',
-    nid: '',
-    mobile: '',
-    salary: 0,
-    email: '',
-    address: '',
-    bloodGroup: '',
-    workingDays: 0,
-    photoUrl: '',
-  });
+  const [isUpdating, setIsUpdating] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -147,33 +110,20 @@ const UserVerify = () => {
     fetchUsers();
   }, [toast]);
 
-  const filteredUsers = users.filter(user => {
-    const matchesSearch = searchTerm === '' || 
-      user.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.studentData?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.staffData?.nameBangla?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.staffData?.nameEnglish?.toLowerCase().includes(searchTerm.toLowerCase());
-    
+  // Filter users based on search term, role, and status
+  const filteredUsers = users.filter((user) => {
+    const matchesSearch = user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (user.studentData?.name && user.studentData.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (user.staffData?.nameBangla && user.staffData.nameBangla.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (user.staffData?.nameEnglish && user.staffData.nameEnglish.toLowerCase().includes(searchTerm.toLowerCase()));
+
     const matchesRole = selectedRole === 'all' || user.role === selectedRole;
     const matchesStatus = selectedStatus === 'all' || 
       (selectedStatus === 'verified' && user.verified) ||
       (selectedStatus === 'unverified' && !user.verified);
-    
+
     return matchesSearch && matchesRole && matchesStatus;
-  }).map(user => ({
-    ...user,
-    joiningDate: user.staffData?.joiningDate 
-      ? typeof user.staffData.joiningDate === 'string' 
-        ? user.staffData.joiningDate 
-        : new Date(user.staffData.joiningDate).toISOString().split('T')[0]
-      : '',
-    staffData: user.staffData ? {
-      ...user.staffData,
-      joiningDate: typeof user.staffData.joiningDate === 'string' 
-        ? user.staffData.joiningDate 
-        : new Date(user.staffData.joiningDate).toISOString().split('T')[0]
-    } : undefined
-  }));
+  });
 
   const handleVerifyUser = async (userId: string, verified: boolean) => {
     try {
@@ -213,7 +163,7 @@ const UserVerify = () => {
     }
   };
 
-  const openEditModal = (user: ExtendedUser) => {
+  const openEditModal = (user: User) => {
     setEditingUser(user);
     if (user.role === 'student') {
       setEditStudentData({
@@ -355,7 +305,7 @@ const UserVerify = () => {
           className="w-full md:w-auto"
         />
         <div className="flex gap-2">
-          <Select value={selectedRole} onValueChange={(value: 'all' | 'admin' | 'staff' | 'student') => setSelectedRole(value)}>
+          <Select value={selectedRole} onValueChange={setSelectedRole}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by Role" />
             </SelectTrigger>
@@ -366,7 +316,7 @@ const UserVerify = () => {
               <SelectItem value="student">Student</SelectItem>
             </SelectContent>
           </Select>
-          <Select value={selectedStatus} onValueChange={(value: 'all' | 'verified' | 'unverified') => setSelectedStatus(value)}>
+          <Select value={selectedStatus} onValueChange={setSelectedStatus}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by Status" />
             </SelectTrigger>
