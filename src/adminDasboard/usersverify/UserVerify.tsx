@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { getAllUsers, editUser, deleteUser } from '@/lib/usersverifyfunctions';
 import { User, StudentData, StaffData, ExtendedUser } from '@/lib/types';
@@ -579,7 +580,7 @@ const UserVerify = () => {
                       }
                     />
                   </div>
-                </div>
+                </>
               )}
             </div>
           )}
