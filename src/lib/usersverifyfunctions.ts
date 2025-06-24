@@ -1,3 +1,4 @@
+
 import { doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, query, where } from 'firebase/firestore';
 import { db } from './firebase';
 import { User, StudentData, StaffData } from './types';
@@ -83,9 +84,12 @@ export const editUser = async (userId: string, updatedData: Partial<ExtendedUser
         englishName: updatedData.studentData.englishName || '',
         motherName: updatedData.studentData.motherName || '',
         fatherName: updatedData.studentData.fatherName || '',
+        photoUrl: updatedData.studentData.photoUrl || '',
+        academicYear: updatedData.studentData.academicYear || '',
+        section: updatedData.studentData.section || '',
+        shift: updatedData.studentData.shift || '',
         email: updatedData.studentData.email || updateData.email || '',
         bloodGroup: updatedData.studentData.bloodGroup || '',
-        photoUrl: updatedData.studentData.photoUrl || '',
         nameBangla: updatedData.studentData.nameBangla || '',
         nameEnglish: updatedData.studentData.nameEnglish || '',
       };
@@ -161,43 +165,6 @@ export const editUser = async (userId: string, updatedData: Partial<ExtendedUser
     throw new Error(error.message || 'Failed to update user');
   }
 };
-
-
-
-
-// Replace the existing deleteUser function
-
-// export const deleteUser = async (userId: string): Promise<void> => {
-//   try {
-//     // Make a DELETE request to the server endpoint
-//     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/users/${userId}`, {
-//       method: 'DELETE',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     });
-
-//     const responseData = await response.json();
-
-//     if (!response.ok) {
-//       console.error('Server error response:', {
-//         userId,
-//         status: response.status,
-//         data: responseData,
-//       });
-//       throw new Error(responseData.error || 'Failed to delete user');
-//     }
-
-//     console.log('User deleted successfully:', { userId, response: responseData });
-//   } catch (error: any) {
-//     console.error('Error in deleteUser:', {
-//       userId,
-//       message: error.message,
-//     });
-//     throw new Error(error.message || 'Failed to delete user');
-//   }
-// };
-
 
 export const deleteUser = async (userId: string, retries = 1): Promise<void> => {
   for (let attempt = 1; attempt <= retries + 1; attempt++) {

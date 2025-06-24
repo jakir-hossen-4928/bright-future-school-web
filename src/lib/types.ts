@@ -1,42 +1,42 @@
 
 export interface StudentData {
   studentId: string;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  gender: string;
-  address: string;
-  phoneNumber: string;
-  grade: string;
+  name: string;
+  class: string;
+  number: string;
+  description: string;
+  englishName: string;
+  motherName: string;
+  fatherName: string;
+  photoUrl: string;
+  academicYear: string;
   section: string;
-  enrollmentDate: string;
-  parentName: string;
-  parentPhone: string;
-  parentEmail: string;
-  emergencyContact: string;
-  medicalInfo?: string;
-  previousSchool?: string;
-  createdAt: any;
-  updatedAt: any;
+  shift: string;
+  email?: string;
+  bloodGroup?: string;
+  nameBangla?: string;
+  nameEnglish?: string;
+  createdAt?: any;
+  updatedAt?: any;
 }
 
 export interface StaffData {
   staffId: string;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  gender: string;
-  address: string;
-  phoneNumber: string;
+  nameBangla: string;
+  nameEnglish: string;
+  subject: string;
+  designation: string;
+  joiningDate: string;
+  nid: string;
+  mobile: string;
+  salary: number;
   email: string;
-  position: string;
-  department: string;
-  hireDate: string;
-  emergencyContact: string;
-  medicalInfo?: string;
-  qualifications?: string[];
-  createdAt: any;
-  updatedAt: any;
+  address: string;
+  bloodGroup: string;
+  workingDays: number;
+  photoUrl: string;
+  createdAt?: any;
+  updatedAt?: any;
 }
 
 export interface User {
@@ -55,4 +55,8 @@ export interface ExtendedUser extends User {
   displayName?: string;
   photoURL?: string;
   emailVerified?: boolean;
+  staffId?: string;
+  designation?: string;
+  joiningDate?: any;
+  nid?: string;
 }
