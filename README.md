@@ -1,7 +1,7 @@
 # MySchool Official Website 🌟
 
 Welcome to **MySchool** - a comprehensive school management system built with **React, TypeScript, and AI-powered automation**! 🎓 Designed to streamline administrative tasks, enhance communication, and empower educators, MySchool is your one-stop solution for modern school management. 🚀
-
+  its myschool..
 ---
 
 ## ✨ Features
@@ -81,4 +81,3 @@ Ensure you have the following before running the project:
 Have questions or need help? Reach out at **mdjakirkhan4928@gmail.com** or join our [Facebook](https://www.facebook.com/share/15YCmukFeD/)! 💌
 
 **Happy Managing with MySchool! 🎉**
-
