@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ProtectedRoute } from './ProtectedRoute';
+import ProtectedRoute from './ProtectedRoute';
 
 interface StudentRouteProps {
   children: React.ReactNode;

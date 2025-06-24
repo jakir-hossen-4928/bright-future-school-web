@@ -9,9 +9,9 @@ export interface StudentData {
   motherName: string;
   fatherName: string;
   photoUrl: string;
-  academicYear: string;
-  section: string;
-  shift: string;
+  academicYear?: string;
+  section?: string;
+  shift?: string;
   email?: string;
   bloodGroup?: string;
   nameBangla?: string;
@@ -21,12 +21,12 @@ export interface StudentData {
 }
 
 export interface StaffData {
-  staffId: string;
+  staffId?: string;
   nameBangla: string;
   nameEnglish: string;
   subject: string;
   designation: string;
-  joiningDate: string;
+  joiningDate: string | Date;
   nid: string;
   mobile: string;
   salary: number;
@@ -57,6 +57,6 @@ export interface ExtendedUser extends User {
   emailVerified?: boolean;
   staffId?: string;
   designation?: string;
-  joiningDate?: any;
+  joiningDate?: string | Date;
   nid?: string;
 }

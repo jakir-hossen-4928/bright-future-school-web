@@ -303,6 +303,7 @@ const SignUp = () => {
     try {
       if (role === "student") {
         const studentData = {
+          studentId: '', // Will be set by register function
           name,
           class: className,
           number,
@@ -313,10 +314,14 @@ const SignUp = () => {
           bloodGroup: studentBloodGroup,
           description,
           englishName,
+          academicYear: new Date().getFullYear().toString(),
+          section: '',
+          shift: '',
         };
         await register(email, password, role, { studentData });
       } else {
         const staffData = {
+          staffId: '', // Will be set by register function
           nameBangla,
           nameEnglish,
           designation,
@@ -329,7 +334,7 @@ const SignUp = () => {
           subject,
           salary: Number(salary),
           bloodGroup: staffBloodGroup,
-          workingDays: Number(workingDays),
+          workingDays: Number(workingDays) || 0,
         };
         await register(email, password, role, { staffData });
       }

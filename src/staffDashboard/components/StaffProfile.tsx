@@ -18,7 +18,7 @@ const StaffProfile: React.FC = () => {
     nameEnglish: '',
     subject: '',
     designation: '',
-    joiningDate: new Date(),
+    joiningDate: '',
     nid: '',
     mobile: '',
     salary: 0,
@@ -51,11 +51,11 @@ const StaffProfile: React.FC = () => {
             designation: fetchedStaffData.designation || '',
             joiningDate: fetchedStaffData.joiningDate
               ? typeof fetchedStaffData.joiningDate === 'string'
-                ? new Date(fetchedStaffData.joiningDate)
+                ? fetchedStaffData.joiningDate
                 : 'seconds' in fetchedStaffData.joiningDate
-                ? new Date(fetchedStaffData.joiningDate.seconds * 1000)
-                : new Date(fetchedStaffData.joiningDate)
-              : new Date(),
+                ? new Date(fetchedStaffData.joiningDate.seconds * 1000).toISOString().split('T')[0]
+                : new Date(fetchedStaffData.joiningDate).toISOString().split('T')[0]
+              : '',
             nid: fetchedStaffData.nid || '',
             mobile: fetchedStaffData.mobile || '',
             salary: fetchedStaffData.salary || 0,
@@ -160,7 +160,7 @@ const StaffProfile: React.FC = () => {
         staffRef,
         {
           ...staffData,
-          joiningDate: staffData.joiningDate instanceof Date ? staffData.joiningDate : new Date(staffData.joiningDate),
+          joiningDate: typeof staffData.joiningDate === 'string' ? staffData.joiningDate : new Date(staffData.joiningDate).toISOString().split('T')[0],
           staffId: user.id, // Ensure staffId matches user.id
         },
         { merge: true }
@@ -173,7 +173,7 @@ const StaffProfile: React.FC = () => {
         {
           staffData: {
             ...staffData,
-            joiningDate: staffData.joiningDate instanceof Date ? staffData.joiningDate : new Date(staffData.joiningDate),
+            joiningDate: typeof staffData.joiningDate === 'string' ? staffData.joiningDate : new Date(staffData.joiningDate).toISOString().split('T')[0],
             staffId: user.id,
           },
         },
@@ -227,19 +227,9 @@ const StaffProfile: React.FC = () => {
                   onImageChange={handleImageChange}
                   className="mb-4"
                   disabled={true}
-
                 />
               </div>
 
-              {/* <div>
-                <Label htmlFor="staffId">Staff ID</Label>
-                <Input
-                  id="staffId"
-                  value={staffData.staffId}
-                  onChange={(e) => setStaffData({ ...staffData, staffId: e.target.value })}
-                  disabled={true} // staffId should not be editable
-                />
-              </div> */}
               <div>
                 <Label htmlFor="nameBangla">Name (Bangla)</Label>
                 <Input
@@ -275,7 +265,6 @@ const StaffProfile: React.FC = () => {
                   id="designation"
                   value={staffData.designation}
                   onChange={(e) => setStaffData({ ...staffData, designation: e.target.value })}
-                  // disabled={isProcessing}
                   required
                   disabled={true}
                 />
@@ -286,12 +275,11 @@ const StaffProfile: React.FC = () => {
                   id="joiningDate"
                   type="date"
                   value={
-                    staffData.joiningDate instanceof Date
-                      ? staffData.joiningDate.toISOString().split('T')[0]
+                    typeof staffData.joiningDate === 'string'
+                      ? staffData.joiningDate
                       : new Date(staffData.joiningDate).toISOString().split('T')[0]
                   }
-                  onChange={(e) => setStaffData({ ...staffData, joiningDate: new Date(e.target.value) })}
-                  // disabled={isProcessing}
+                  onChange={(e) => setStaffData({ ...staffData, joiningDate: e.target.value })}
                   required
                   disabled={true}
                 />
@@ -333,7 +321,6 @@ const StaffProfile: React.FC = () => {
                   type="email"
                   value={staffData.email}
                   onChange={(e) => setStaffData({ ...staffData, email: e.target.value })}
-                  // disabled={isProcessing}
                   required
                   disabled={true}
                 />
@@ -354,20 +341,9 @@ const StaffProfile: React.FC = () => {
                   id="bloodGroup"
                   value={staffData.bloodGroup}
                   onChange={(e) => setStaffData({ ...staffData, bloodGroup: e.target.value })}
-                  // disabled={isProcessing}
                   disabled={true}
                 />
               </div>
-              {/* <div>
-                <Label htmlFor="workingDays">Working Days</Label>
-                <Input
-                  id="workingDays"
-                  type="number"
-                  value={staffData.workingDays}
-                  onChange={(e) => setStaffData({ ...staffData, workingDays: parseInt(e.target.value) || 0 })}
-                  disabled={isProcessing}
-                />
-              </div> */}
 
               <div className="col-span-1 sm:col-span-2 flex justify-end gap-2 mt-4">
                 <Button type="submit" disabled={isProcessing}>

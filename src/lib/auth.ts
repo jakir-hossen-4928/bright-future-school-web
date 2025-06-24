@@ -100,6 +100,16 @@ const createSession = async (userId: string) => {
     }
 };
 
+export const isAuthenticated = async (): Promise<boolean> => {
+  try {
+    const user = await getCurrentUser();
+    return user !== null;
+  } catch (error) {
+    console.error('Error checking authentication:', error);
+    return false;
+  }
+};
+
 export const register = async (
   email: string,
   password: string,
