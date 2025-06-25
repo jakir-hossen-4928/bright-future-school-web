@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { getCurrentUser, User, StaffData } from '@/lib/auth';
 import { doc, setDoc } from 'firebase/firestore';
@@ -43,28 +42,28 @@ const StaffProfile: React.FC = () => {
         console.log('Fetched User:', JSON.stringify(currentUser));
         if (currentUser && currentUser.role === 'staff') {
           setUser(currentUser);
-          const fetchedStaffData = currentUser.staffData || {};
+          const fetchedStaffData = currentUser.staffData;
           setStaffData({
-            staffId: fetchedStaffData.staffId || '',
-            nameBangla: fetchedStaffData.nameBangla || '',
-            nameEnglish: fetchedStaffData.nameEnglish || '',
-            subject: fetchedStaffData.subject || '',
-            designation: fetchedStaffData.designation || '',
-            joiningDate: fetchedStaffData.joiningDate
+            staffId: fetchedStaffData?.staffId || '',
+            nameBangla: fetchedStaffData?.nameBangla || '',
+            nameEnglish: fetchedStaffData?.nameEnglish || '',
+            subject: fetchedStaffData?.subject || '',
+            designation: fetchedStaffData?.designation || '',
+            joiningDate: fetchedStaffData?.joiningDate
               ? typeof fetchedStaffData.joiningDate === 'string'
                 ? fetchedStaffData.joiningDate
                 : 'seconds' in fetchedStaffData.joiningDate
                 ? new Date(fetchedStaffData.joiningDate.seconds * 1000).toISOString().split('T')[0]
                 : new Date(fetchedStaffData.joiningDate).toISOString().split('T')[0]
               : '',
-            nid: fetchedStaffData.nid || '',
-            mobile: fetchedStaffData.mobile || '',
-            salary: fetchedStaffData.salary || 0,
-            email: fetchedStaffData.email || currentUser.email || '',
-            address: fetchedStaffData.address || '',
-            bloodGroup: fetchedStaffData.bloodGroup || '',
-            workingDays: fetchedStaffData.workingDays || 0,
-            photoUrl: fetchedStaffData.photoUrl || '',
+            nid: fetchedStaffData?.nid || '',
+            mobile: fetchedStaffData?.mobile || '',
+            salary: fetchedStaffData?.salary || 0,
+            email: fetchedStaffData?.email || currentUser.email || '',
+            address: fetchedStaffData?.address || '',
+            bloodGroup: fetchedStaffData?.bloodGroup || '',
+            workingDays: fetchedStaffData?.workingDays || 0,
+            photoUrl: fetchedStaffData?.photoUrl || '',
           });
         } else {
           toast({

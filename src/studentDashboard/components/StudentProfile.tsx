@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { getCurrentUser, User, StudentData } from '@/lib/auth';
 import { doc, setDoc } from 'firebase/firestore';
@@ -40,19 +39,19 @@ const StudentProfile: React.FC = () => {
         console.log('Fetched User:', JSON.stringify(currentUser));
         if (currentUser && currentUser.role === 'student') {
           setUser(currentUser);
-          const fetchedStudentData = currentUser.studentData || {};
+          const fetchedStudentData = currentUser.studentData;
           setStudentData({
-            studentId: fetchedStudentData.studentId || currentUser.id || '',
-            name: fetchedStudentData.name || '',
-            englishName: fetchedStudentData.englishName || '',
-            class: fetchedStudentData.class || '',
-            number: fetchedStudentData.number || '',
-            description: fetchedStudentData.description || '',
-            motherName: fetchedStudentData.motherName || '',
-            fatherName: fetchedStudentData.fatherName || '',
-            email: fetchedStudentData.email || currentUser.email || '',
-            bloodGroup: fetchedStudentData.bloodGroup || '',
-            photoUrl: fetchedStudentData.photoUrl || '',
+            studentId: fetchedStudentData?.studentId || currentUser.id || '',
+            name: fetchedStudentData?.name || '',
+            englishName: fetchedStudentData?.englishName || '',
+            class: fetchedStudentData?.class || '',
+            number: fetchedStudentData?.number || '',
+            description: fetchedStudentData?.description || '',
+            motherName: fetchedStudentData?.motherName || '',
+            fatherName: fetchedStudentData?.fatherName || '',
+            email: fetchedStudentData?.email || currentUser.email || '',
+            bloodGroup: fetchedStudentData?.bloodGroup || '',
+            photoUrl: fetchedStudentData?.photoUrl || '',
           });
         } else {
           toast({
