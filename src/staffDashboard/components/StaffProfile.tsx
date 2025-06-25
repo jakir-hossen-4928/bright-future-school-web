@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { getCurrentUser, User, StaffData } from '@/lib/auth';
 import { doc, setDoc } from 'firebase/firestore';

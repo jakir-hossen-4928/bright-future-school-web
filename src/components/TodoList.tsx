@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useMemo } from 'react';
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
@@ -152,18 +153,15 @@ const TodoListDashboard = () => {
             if (editingTask) {
                 const taskRef = doc(db, 'tasks', editingTask.$id);
                 await updateDoc(taskRef, taskData);
+                const updatedTask: Task = { ...taskData, $id: editingTask.$id };
+                setTasks((prev) => prev.map((t) => (t.$id === editingTask.$id ? updatedTask : t)));
                 toast({ title: 'Success', description: 'Task updated successfully' });
             } else {
                 const docRef = await addDoc(collection(db, 'tasks'), taskData);
-                taskData.$id = docRef.id;
+                const newTaskWithId: Task = { ...taskData, $id: docRef.id };
+                setTasks((prev) => [...prev, newTaskWithId]);
                 toast({ title: 'Success', description: 'Task added successfully' });
             }
-
-            setTasks((prev) =>
-                editingTask
-                    ? prev.map((t) => (t.$id === editingTask.$id ? { ...taskData, $id: editingTask.$id } : t))
-                    : [...prev, { ...taskData, $id: taskData.$id }]
-            );
 
             setTaskDialogOpen(false);
             resetTaskForm();

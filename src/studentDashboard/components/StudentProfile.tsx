@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { getCurrentUser, User, StudentData } from '@/lib/auth';
 import { doc, setDoc } from 'firebase/firestore';
@@ -240,7 +241,6 @@ const StudentProfile: React.FC = () => {
                   id="class"
                   value={studentData.class}
                   onChange={(e) => setStudentData({ ...studentData, class: e.target.value })}
-                  // disabled={isProcessing}
                   required
                   className="border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   disabled={true}
@@ -308,18 +308,6 @@ const StudentProfile: React.FC = () => {
                   className="border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                 />
               </div>
-              {/* <div className="col-span-1 sm:col-span-2 space-y-2">
-                <Label htmlFor="description" className="text-sm font-medium text-gray-700">
-                  Description
-                </Label>
-                <Input
-                  id="description"
-                  value={studentData.description}
-                  onChange={(e) => setStudentData({ ...studentData, description: e.target.value })}
-                  disabled={isProcessing}
-                  className="border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-                />
-              </div> */}
             </div>
 
             <div className="flex justify-end gap-4 mt-6">

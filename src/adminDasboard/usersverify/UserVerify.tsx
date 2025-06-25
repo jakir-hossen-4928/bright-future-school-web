@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { getAllUsers, editUser, deleteUser } from '@/lib/usersverifyfunctions';
 import { User, StudentData, StaffData, ExtendedUser } from '@/lib/types';
@@ -305,7 +306,7 @@ const UserVerify = () => {
           className="w-full md:w-auto"
         />
         <div className="flex gap-2">
-          <Select value={selectedRole} onValueChange={setSelectedRole}>
+          <Select value={selectedRole} onValueChange={(value: RoleFilter) => setSelectedRole(value)}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by Role" />
             </SelectTrigger>
@@ -316,7 +317,7 @@ const UserVerify = () => {
               <SelectItem value="student">Student</SelectItem>
             </SelectContent>
           </Select>
-          <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+          <Select value={selectedStatus} onValueChange={(value: StatusFilter) => setSelectedStatus(value)}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by Status" />
             </SelectTrigger>
