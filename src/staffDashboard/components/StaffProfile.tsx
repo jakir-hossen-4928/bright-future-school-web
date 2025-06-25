@@ -52,8 +52,8 @@ const StaffProfile: React.FC = () => {
             joiningDate: fetchedStaffData?.joiningDate
               ? typeof fetchedStaffData.joiningDate === 'string'
                 ? fetchedStaffData.joiningDate
-                : 'seconds' in fetchedStaffData.joiningDate
-                ? new Date(fetchedStaffData.joiningDate.seconds * 1000).toISOString().split('T')[0]
+                : fetchedStaffData.joiningDate && typeof fetchedStaffData.joiningDate === 'object' && 'seconds' in fetchedStaffData.joiningDate
+                ? new Date((fetchedStaffData.joiningDate as any).seconds * 1000).toISOString().split('T')[0]
                 : new Date(fetchedStaffData.joiningDate).toISOString().split('T')[0]
               : '',
             nid: fetchedStaffData?.nid || '',
